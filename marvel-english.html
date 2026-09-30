@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARVEL | Multiverse Collapse — Before Doomsday</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #ed1d24;
+    --gold: #f0b323;
+    --purple: #7a1fa2;
+    --blue: #00b3e3;
+    --dark: #050508;
+  }
+
+  body {
+    font-family: 'Barlow Condensed', sans-serif;
+    background: var(--dark);
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ANIMATED STARFIELD */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 70%, #9bb, transparent),
+      radial-gradient(2px 2px at 55% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 55%, #ed1d24, transparent),
+      radial-gradient(1px 1px at 65% 85%, #fff, transparent),
+      radial-gradient(2px 2px at 90% 15%, #00b3e3, transparent),
+      radial-gradient(1px 1px at 45% 50%, #f0b323, transparent);
+    background-size: 200% 200%;
+    animation: drift 60s linear infinite;
+    opacity: .5;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes drift {
+    from { background-position: 0 0; }
+    to { background-position: 200% 200%; }
+  }
+
+  /* FLOATING WATERMARK */
+  .watermark {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 5px;
+    color: rgba(237, 29, 36, 0.4);
+    pointer-events: none;
+    z-index: 999;
+    text-shadow: 0 0 12px rgba(237, 29, 36, 0.5);
+    animation: watermarkPulse 3s infinite alternate;
+  }
+  @keyframes watermarkPulse {
+    from { opacity: .25; }
+    to   { opacity: .6; }
+  }
+
+  /* ============ NAVBAR ============ */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,5,8,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 2px solid var(--red);
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+    background: var(--red);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 3px;
+  }
+  nav ul {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+  }
+  nav ul a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-size: .95rem;
+    text-transform: uppercase;
+    transition: color .25s;
+  }
+  nav ul a:hover { color: var(--red); }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 22px;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(122,31,162,.35), transparent 60%),
+      radial-gradient(ellipse at 20% 100%, rgba(237,29,36,.25), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(0,179,227,.2), transparent 55%);
+  }
+
+  .studios {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 8px;
+    color: var(--red);
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.6rem, 8vw, 6rem);
+    line-height: .95;
+    letter-spacing: 3px;
+    background: linear-gradient(180deg, #fff 20%, #ed1d24 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 1.2s ease;
+    text-shadow: 0 0 60px rgba(237,29,36,.4);
+  }
+
+  .hero h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin-top: 8px;
+    animation: fadeUp 1.5s ease;
+  }
+
+  .hero p {
+    max-width: 700px;
+    margin: 26px auto 0;
+    color: #b8b8c8;
+    font-size: 1.15rem;
+    animation: fadeUp 1.8s ease;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px);} to { opacity:1; transform: translateY(0);} }
+  @keyframes fadeDown { from { opacity:0; transform: translateY(-20px);} to {opacity:1; transform: translateY(0);} }
+
+  .spoiler-band {
+    margin-top: 34px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 10px 26px;
+    border-radius: 4px;
+    font-size: .9rem;
+    text-transform: uppercase;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(237,29,36,.7); }
+    50% { box-shadow: 0 0 0 16px rgba(237,29,36,0); }
+  }
+
+  /* ============ SECTIONS ============ */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 22px;
+  }
+
+  .section-head {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-head::before {
+    content: "";
+    width: 6px;
+    height: 42px;
+    background: linear-gradient(180deg, var(--red), var(--purple));
+    display: inline-block;
+  }
+
+  /* EARTH CARDS */
+  .earth-card {
+    position: relative;
+    background: linear-gradient(135deg, #101018, #08080d);
+    border: 1px solid #22222e;
+    border-left: 4px solid var(--red);
+    border-radius: 10px;
+    padding: 26px 28px;
+    margin-bottom: 20px;
+    transition: all .35s ease;
+    overflow: hidden;
+  }
+  .earth-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(237,29,36,.08), transparent);
+    transform: translateX(-100%);
+    transition: transform .6s;
+  }
+  .earth-card:hover::after { transform: translateX(100%); }
+  .earth-card:hover {
+    border-left-color: var(--gold);
+    transform: translateX(6px);
+    box-shadow: -8px 0 30px rgba(237,29,36,.25);
+  }
+
+  .earth-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .code {
+    font-family: 'Bebas Neue', sans-serif;
+    color: var(--blue);
+    letter-spacing: 3px;
+    font-size: .95rem;
+    margin-bottom: 12px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 3px;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+  .t-incursion { background: rgba(240,179,35,.15); color: var(--gold); border: 1px solid var(--gold); }
+  .t-risk { background: rgba(237,29,36,.15); color: #ff5259; border: 1px solid var(--red); }
+  .t-safe { background: rgba(0,179,227,.15); color: var(--blue); border: 1px solid var(--blue); }
+  .t-dead { background: rgba(120,120,140,.15); color: #8a8a9c; border: 1px solid #444; }
+
+  .earth-card p { color: #b0b0c0; font-size: 1.05rem; margin-top: 10px; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .chips span {
+    font-size: .82rem;
+    background: #16161f;
+    border: 1px solid #2c2c3c;
+    padding: 5px 14px;
+    border-radius: 3px;
+    color: #a0a0b8;
+    letter-spacing: 1px;
+    transition: all .25s;
+  }
+  .chips span:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* DESTROYED GRID */
+  .dead-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+  }
+  .dead-card {
+    background: #0d0d12;
+    border: 1px solid #2a1a1a;
+    border-top: 3px solid var(--red);
+    border-radius: 8px;
+    padding: 22px;
+    position: relative;
+    transition: all .3s;
+  }
+  .dead-card:hover {
+    background: #150a0a;
+    border-color: var(--red);
+    box-shadow: 0 10px 30px rgba(237,29,36,.2);
+  }
+  .dead-card::before {
+    content: "✕";
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 1.4rem;
+    color: var(--red);
+    opacity: .6;
+  }
+  .dead-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: #ff5259;
+    margin-bottom: 8px;
+  }
+  .dead-card p { color: #9090a0; font-size: .95rem; }
+
+  /* DOOM BOX */
+  .doom {
+    background: linear-gradient(135deg, #1a0505, #0a0508);
+    border: 1px solid #4a1a1a;
+    border-radius: 12px;
+    padding: 40px 34px;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .doom::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 90% 20%, rgba(237,29,36,.18), transparent 50%);
+  }
+  .doom h3 {
+    position: relative;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+  .doom p { position: relative; color: #c0c0d0; font-size: 1.08rem; }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    margin-top: 60px;
+    padding: 50px 26px;
+    background: linear-gradient(135deg, #1a081f, #08080d);
+    border: 2px solid var(--purple);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .cta p { color: #b0b0c0; }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 36px 20px;
+    border-top: 1px solid #1a1a24;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 6px;
+    background: linear-gradient(90deg, var(--red), var(--gold), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    opacity: .95;
+  }
+  .footer-sub {
+    letter-spacing: 3px;
+    font-size: .82rem;
+    color: #55556a;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    .hero { min-height: 78vh; }
+    .earth-card { padding: 20px; }
+    .doom { padding: 26px 22px; }
+    .watermark { font-size: .85rem; letter-spacing: 3px; bottom: 12px; right: 12px; }
+    .footer-brand { font-size: 1.4rem; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING WATERMARK -->
+<div class="watermark">SCREENTALK INSIGHTS</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">MARVEL</div>
+  <ul>
+    <li><a href="#earth">Earths</a></li>
+    <li><a href="#destroyed">Destroyed</a></li>
+    <li><a href="#doom">Doom</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="studios">MARVEL STUDIOS</div>
+  <h1>THE MULTIVERSE<br>IS COLLAPSING</h1>
+  <h2>BEFORE DOOMSDAY</h2>
+  <p>The new <strong>Avengers: Endgame Encore</strong> post-credit footage has revealed the MCU's biggest threat yet — thousands of universes are collapsing. Here is the full list of every Earth caught in the incursion.</p>
+  <div class="spoiler-band">⚠ Spoiler Alert</div>
+</header>
+
+<!-- EARTHS -->
+<div class="container" id="earth">
+  <h2 class="section-head">EARTHS IN THE COLLAPSE</h2>
+
+  <div class="earth-card">
+    <h3>EARTH-10005 <span class="tag t-incursion">Incursion</span></h3>
+    <div class="code">FOX X-MEN UNIVERSE</div>
+    <p>On a collision course with Earth-1127. Both realities launch missiles at each other before impact. The X-Men could be pulled directly into the wider MCU conflict.</p>
+    <div class="chips">
+      <span>Professor X</span><span>Wolverine</span><span>Magneto</span>
+      <span>Cyclops</span><span>Mystique</span><span>Deadpool</span>
+    </div>
+  </div>
+
+  <div class="earth-card">
+    <h3>EARTH-1127 <span class="tag t-incursion">Incursion</span></h3>
+    <div class="code">UNKNOWN REALITY</div>
+    <p>The mystery universe colliding with Earth-10005. Marvel has not publicly revealed which heroes live there. The TVA footage shows its inhabitants attempting to defend themselves.</p>
+  </div>
+
+  <div class="earth-card">
+    <h3>EARTH-616 <span class="tag t-risk">At Risk</span></h3>
+    <div class="code">MAIN MCU — SACRED TIMELINE</div>
+    <p>If the incursions continue spreading, the main MCU could ultimately become part of the same survival battle.</p>
+    <div class="chips">
+      <span>Thor</span><span>Hulk</span><span>Spider-Man</span>
+      <span>Doctor Strange</span><span>Captain Marvel</span><span>Shang-Chi</span>
+      <span>Daredevil</span><span>Ant-Man</span>
+    </div>
+  </div>
+
+  <div class="earth-card">
+    <h3>EARTH-828 <span class="tag t-safe">Surviving</span></h3>
+    <div class="code">FANTASTIC FOUR UNIVERSE</div>
+    <p>Expected to play a major role in Doomsday. This universe gives Marvel another major superhero faction that can collide with the Avengers and X-Men.</p>
+    <div class="chips">
+      <span>Reed Richards</span><span>Sue Storm</span>
+      <span>Johnny Storm</span><span>Ben Grimm</span>
+    </div>
+  </div>
+</div>
+
+<!-- DESTROYED -->
+<div class="container" id="destroyed">
+  <h2 class="section-head">DESTROYED REALITIES</h2>
+
+  <div class="dead-grid">
+    <div class="dead-card">
+      <h4>EARTH-400083</h4>
+      <p>Eric Bana's 2003 Hulk universe. Hero: Bruce Banner / Hulk. <strong>Status: TERMINATED</strong></p>
+    </div>
+    <div class="dead-card">
+      <h4>EARTH-8211</h4>
+      <p>Captain Carter's reality from What If...?. Main hero: Peggy Carter. <strong>Status: DESTROYED</strong></p>
+    </div>
+    <div class="dead-card">
+      <h4>EARTH-15866</h4>
+      <p>The universe from the 2015 Fantastic Four movie. <strong>Status: DESTROYED</strong></p>
+    </div>
+  </div>
+
+  <div class="earth-card" style="margin-top:22px; border-left-color: var(--purple);">
+    <h3>THOUSANDS OF UNKNOWN EARTHS <span class="tag t-risk">Collapsing</span></h3>
+    <p>The TVA isn't dealing with just a handful of endangered worlds — the footage suggests <strong>thousands of universes</strong> are undergoing incursions. The Earths shown on screen could represent only a tiny portion of the destruction.</p>
+  </div>
+</div>
+
+<!-- DOOM -->
+<div class="container" id="doom">
+  <h2 class="section-head">THE RISE OF DOOM</h2>
+
+  <div class="doom">
+    <h3>☠ DOCTOR DOOM</h3>
+    <p>The multiversal collapse gives the Avengers, X-Men, and Fantastic Four a common reason to fight together. At the center of this crisis is Doctor Doom — played by Robert Downey Jr. The new footage teases his arrival, including a sequence involving Bruce Banner and another showing Doom preparing his mask.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="container">
+  <div class="cta">
+    <h3>WHICH EARTH WILL SURVIVE?</h3>
+    <p>Drop your theory in the comments. Save &amp; share for more MCU breakdowns.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">SCREENTALK INSIGHTS</div>
+  <div class="footer-sub">Marvel Multiverse Breakdown</div>
+</footer>
+
+</body>
+</html>
